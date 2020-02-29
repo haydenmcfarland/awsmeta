@@ -4,6 +4,7 @@ require 'uri'
 require 'net/http'
 require_relative 'awsmeta/version'
 require_relative 'awsmeta/helpers'
+require_relative 'awsmeta/checker'
 
 # Awsmeta retrieves metadata from AWS EC2 instances
 module Awsmeta
