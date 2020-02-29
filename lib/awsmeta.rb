@@ -3,9 +3,12 @@
 require 'uri'
 require 'net/http'
 require_relative 'awsmeta/version'
+require_relative 'awsmeta/helpers'
 
 # Awsmeta retrieves metadata from AWS EC2 instances
 module Awsmeta
+  include Awsmeta::Helpers
+
   module_function
 
   # aws reserved host used to get instance meta-data
@@ -17,14 +20,6 @@ module Awsmeta
   META_DATA_CREDENTIALS_PATH = 'iam/security-credentials'
   META_DATA_INSTANCE_ID_PATH = 'instance-id'
   META_DATA_INSTANCE_IDENTITY_PATH = 'instance-identity/document'
-
-  def aws?
-    return false if ENV['AWSMETA_DISABLE_AWS_CHECK'] == 'true'
-
-    !get(META_DATA_BASE_URL).nil?
-  rescue Net::OpenTimeout, Errno::EHOSTUNREACH
-    false
-  end
 
   def self.request_timeout
     ENV['AWSMETA_REQUEST_TIMEOUT'] || 1
@@ -45,16 +40,14 @@ module Awsmeta
     get(META_DATA_LATEST_DYNAMIC_URL % query)
   end
 
-  def sym(obj)
-    obj.each_with_object({}) { |(k, v), h| h[k.underscore.to_sym] = v }
-  end
-
   def credentials
-    sym(JSON.parse(query_meta_data("#{META_DATA_CREDENTIALS_PATH}/#{role}")))
+    symbolize_keys(
+      JSON.parse(query_meta_data("#{META_DATA_CREDENTIALS_PATH}/#{role}"))
+    )
   end
 
   def document
-    sym(JSON.parse(query_dynamic(META_DATA_INSTANCE_IDENTITY_PATH)))
+    symbolize_keys(JSON.parse(query_dynamic(META_DATA_INSTANCE_IDENTITY_PATH)))
   end
 
   def instance_id
