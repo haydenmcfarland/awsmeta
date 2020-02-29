@@ -14,9 +14,9 @@ Gem::Specification.new do |s|
   s.description = 'AWS metadata loader'
   s.homepage = 'https://github.com/haydenmcfarland/awsmeta'
   s.license = 'MIT'
-  s.files = [
-    'lib/awsmeta/version.rb',
-    'lib/awsmeta.rb'
-  ]
+  s.files = `git ls-files -z`.split("\x0").reject do |f|
+    f.match(%r{^(test|spec|features)/})
+  end
+
   s.require_paths = ['lib']
 end
