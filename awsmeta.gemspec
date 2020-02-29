@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+lib = File.expand_path('lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require_relative 'lib/awsmeta/version'
+
 Gem::Specification.new do |s|
   s.name = 'awsmeta'
-  s.version = '1.0.0'
+  s.version = Awsmeta::VERSION
   s.authors = ['haydenmcfarland']
   s.email = ['mcfarlandsms@gmail.com']
   s.date = '2020-02-28'
@@ -11,6 +15,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/haydenmcfarland/awsmeta'
   s.license = 'MIT'
   s.files = [
+    'lib/awsmeta/version.rb',
     'lib/awsmeta.rb'
   ]
   s.require_paths = ['lib']
