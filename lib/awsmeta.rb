@@ -21,15 +21,25 @@ module Awsmeta
   META_DATA_INSTANCE_ID_PATH = 'instance-id'
   META_DATA_INSTANCE_IDENTITY_PATH = 'instance-identity/document'
 
-  def request_timeout
-    ENV['AWSMETA_REQUEST_TIMEOUT'].to_i || 1
+  def read_timeout
+    ENV['AWSMETA_READ_TIMEOUT'].to_i || 10
+  end
+
+  def open_timeout
+    ENV['AWSMETA_OPEN_TIMEOUT'].to_i || 10
   end
 
   def get(url)
     uri = URI.parse(url)
-    req = Net::HTTP.new(uri.host, uri.port)
-    req.read_timeout = req.open_timeout = request_timeout
-    req.start { |http| http.get(uri.to_s) }.body
+    request = Net::HTTP.new(uri.host, uri.port)
+    request.read_timeout = read_timeout
+    request.open_timeout = open_timeout
+    response = request.start { |http| http.get(uri.to_s) }
+
+    return { error: response.message, code: response.code } if
+      response.code != '200'
+
+    response.body
   end
 
   def query_meta_data(query)
