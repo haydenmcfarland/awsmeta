@@ -2,14 +2,13 @@
 
 require 'uri'
 require 'net/http'
+require 'json'
 require_relative 'awsmeta/version'
 require_relative 'awsmeta/helpers'
 require_relative 'awsmeta/checker'
 
 # Awsmeta retrieves metadata from AWS EC2 instances
 module Awsmeta
-  include Awsmeta::Helpers
-
   module_function
 
   # aws reserved host used to get instance meta-data
@@ -22,11 +21,11 @@ module Awsmeta
   META_DATA_INSTANCE_ID_PATH = 'instance-id'
   META_DATA_INSTANCE_IDENTITY_PATH = 'instance-identity/document'
 
-  def self.request_timeout
-    ENV['AWSMETA_REQUEST_TIMEOUT'] || 1
+  def request_timeout
+    ENV['AWSMETA_REQUEST_TIMEOUT'].to_i || 1
   end
 
-  def self.get(url)
+  def get(url)
     uri = URI.parse(url)
     req = Net::HTTP.new(uri.host, uri.port)
     req.read_timeout = req.open_timeout = request_timeout
@@ -42,13 +41,15 @@ module Awsmeta
   end
 
   def credentials
-    symbolize_keys(
+    Awsmeta::Helpers.symbolize_and_underscore_keys(
       JSON.parse(query_meta_data("#{META_DATA_CREDENTIALS_PATH}/#{role}"))
     )
   end
 
   def document
-    symbolize_keys(JSON.parse(query_dynamic(META_DATA_INSTANCE_IDENTITY_PATH)))
+    Awsmeta::Helpers.symbolize_and_underscore_keys(
+      JSON.parse(query_dynamic(META_DATA_INSTANCE_IDENTITY_PATH))
+    )
   end
 
   def instance_id
