@@ -22,24 +22,34 @@ module Awsmeta
   META_DATA_INSTANCE_IDENTITY_PATH = 'instance-identity/document'
 
   def read_timeout
-    ENV['AWSMETA_READ_TIMEOUT'].to_i || 10
+    (ENV['AWSMETA_READ_TIMEOUT'] || 10).to_i
   end
 
   def open_timeout
-    ENV['AWSMETA_OPEN_TIMEOUT'].to_i || 10
+    (ENV['AWSMETA_OPEN_TIMEOUT'] || 10).to_i
   end
 
-  def get(url)
+  def request(url)
     uri = URI.parse(url)
     request = Net::HTTP.new(uri.host, uri.port)
     request.read_timeout = read_timeout
     request.open_timeout = open_timeout
-    response = request.start { |http| http.get(uri.to_s) }
+    request.start { |http| http.get(uri.to_s) }
+  end
 
+  def attempt_json_parse(string)
+    JSON.parse(string)
+  rescue JSON::ParserError
+    string
+  end
+
+  def get(url)
+    response = request(url)
     return { error: response.message, code: response.code } if
       response.code != '200'
 
-    response.body
+    result = attempt_json_parse(response.body)
+    result.is_a?(String) ? { resource: result } : result
   end
 
   def query_meta_data(query)
@@ -51,19 +61,25 @@ module Awsmeta
   end
 
   def credentials
+    result = role
+    return result unless result[:resource]
+
     Awsmeta::Helpers.symbolize_and_underscore_keys(
-      JSON.parse(query_meta_data("#{META_DATA_CREDENTIALS_PATH}/#{role}"))
+      query_meta_data("#{META_DATA_CREDENTIALS_PATH}/#{result[:resource]}")
     )
   end
 
   def document
     Awsmeta::Helpers.symbolize_and_underscore_keys(
-      JSON.parse(query_dynamic(META_DATA_INSTANCE_IDENTITY_PATH))
+      query_dynamic(META_DATA_INSTANCE_IDENTITY_PATH)
     )
   end
 
   def instance_id
-    query_meta_data(META_DATA_INSTANCE_ID_PATH)
+    result = query_meta_data(META_DATA_INSTANCE_ID_PATH)
+    return result unless result[:resource]
+
+    { instance_id: result[:resource] }
   end
 
   def role
