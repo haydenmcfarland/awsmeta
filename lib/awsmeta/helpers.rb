@@ -5,7 +5,6 @@ module Awsmeta
   module Helpers
     module_function
 
-    # stripped from activesupport
     def underscore(camel_cased_word)
       return camel_cased_word unless /[A-Z-]|::/.match?(camel_cased_word)
 

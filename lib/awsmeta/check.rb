@@ -2,14 +2,14 @@
 
 module Awsmeta
   # used to process metadata responses
-  module Checker
+  module Check
     module_function
 
-    # FIXME: this should be refined as this is not the best methodology
-    def aws?
+    # check for if code is executing on an ec2 instance
+    def ec2?
       return false if ENV['AWSMETA_DISABLE_AWS_CHECK'] == 'true'
 
-      !Awsmeta.get(Awsmeta::META_DATA_BASE_URL).nil?
+      !Awsmeta.instance_id.nil?
     rescue Net::OpenTimeout, Errno::EHOSTUNREACH
       false
     end
