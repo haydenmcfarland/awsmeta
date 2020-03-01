@@ -50,8 +50,8 @@ module Awsmeta
     return { error: response.message, code: response.code } if
       response.code != '200'
 
-    attempt_json_parse(response.body)
-    result.is_a?(String) ? { resource: result } : result
+    result = attempt_json_parse(response.body)
+    { resource: result }
   end
 
   def query_meta_data(query)
@@ -68,19 +68,17 @@ module Awsmeta
     raise Awsmeta::Errors::ResourceNotFound, result[:message] unless
       result[:resource]
 
-    result[:resouse]
+    result[:resource]
   end
 
   def credentials
-    Awsmeta::Helpers.symbolize_and_underscore_keys(
-      fetch("#{META_DATA_CREDENTIALS_PATH}/#{role}")
-    )
+    result = fetch("#{META_DATA_CREDENTIALS_PATH}/#{role}")
+    Awsmeta::Helpers.symbolize_and_underscore_keys(result)
   end
 
   def document
-    Awsmeta::Helpers.symbolize_and_underscore_keys(
-      fetch(META_DATA_INSTANCE_IDENTITY_PATH, 'query_dynamic')
-    )
+    result = fetch(META_DATA_INSTANCE_IDENTITY_PATH, 'query_dynamic')
+    Awsmeta::Helpers.symbolize_and_underscore_keys(result)
   end
 
   def instance_id
