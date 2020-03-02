@@ -11,7 +11,7 @@
 Add `awsmeta` to your gem file:
 
 ```ruby
-gem 'awsmeta', git: 'https://github.com/haydenmcfarland/awsmeta'
+gem 'awsmeta'
 ```
 
 Run `bundle install`
