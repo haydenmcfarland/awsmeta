@@ -1,6 +1,6 @@
 # awsmeta
 
-AWS metadata loader
+AWS metadata reader for EC2 instances
 
 # How to use
 
