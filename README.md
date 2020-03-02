@@ -73,7 +73,7 @@ Awsmeta.role
 ```
 
 If a role is not defined, the `credential` and `role` calls will raise
-an `A`wsmeta::Errors::ResourceNotFound` error.
+an `Awsmeta::Errors::ResourceNotFound` error.
 
 ```ruby
 Awsmeta.role
