@@ -1,10 +1,13 @@
 # awsmeta
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+[![Gem Version](https://badge.fury.io/rb/awsmeta.svg)](https://badge.fury.io/rb/awsmeta)
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/adfb8333557241e81a02/maintainability)](https://codeclimate.com/github/haydenmcfarland/awsmeta/maintainability)
+
 [![Build Status](https://travis-ci.org/haydenmcfarland/awsmeta.svg?branch=master)](https://travis-ci.org/haydenmcfarland/awsmeta)
 
-# How to use
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/haydenmcfarland/awsmeta/blob/master/LICENSE.txt)
 
+# How to use
 Add `awsmeta` to your gem file:
 
 ```ruby
