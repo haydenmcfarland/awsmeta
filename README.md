@@ -1,4 +1,7 @@
-# awsmeta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)] [![Maintainability](https://api.codeclimate.com/v1/badges/adfb8333557241e81a02/maintainability)](https://codeclimate.com/github/haydenmcfarland/awsmeta/maintainability)
+# awsmeta
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/adfb8333557241e81a02/maintainability)](https://codeclimate.com/github/haydenmcfarland/awsmeta/maintainability)
+[![Build Status](https://travis-ci.org/haydenmcfarland/awsmeta.svg?branch=master)](https://travis-ci.org/haydenmcfarland/awsmeta)
 
 # How to use
 
