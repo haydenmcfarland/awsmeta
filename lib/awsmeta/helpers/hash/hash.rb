@@ -18,7 +18,9 @@ module Awsmeta
       end
 
       def symbolize_and_underscore_keys(obj)
-        obj.each_with_object({}) { |(k, v), h| h[underscore(k).to_sym] = v }
+        obj.each_with_object({}) do |(k, v), h|
+          h[k.nil? ? k : underscore(k).to_sym] = v
+        end
       end
     end
   end
