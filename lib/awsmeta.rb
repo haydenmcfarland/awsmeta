@@ -65,7 +65,7 @@ module Awsmeta
   def fetch(query, method = 'query_meta_data')
     result = send(method, query)
 
-    raise Awsmeta::Errors::ResourceNotFound, result[:message] unless
+    raise Awsmeta::Errors::ResourceNotFound, result[:error] unless
       result[:resource]
 
     result[:resource]
