@@ -3,6 +3,8 @@ rvm:
  - 2.5
  - 2.6
  - 2.7
+install:
+ - bundle install
 script:
  - gem build awsmeta.gemspec
  - rspec
