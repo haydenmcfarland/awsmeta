@@ -1,4 +1,4 @@
-# awsmeta
+# awsmeta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 AWS metadata reader for EC2 instances
 
