@@ -1,6 +1,4 @@
-# awsmeta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <a href="https://codeclimate.com/github/haydenmcfarland/awsmeta/maintainability"><img src="https://api.codeclimate.com/v1/badges/adfb8333557241e81a02/maintainability" /></a>
-
-AWS metadata reader for EC2 instances
+# awsmeta [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)] [![Maintainability](https://api.codeclimate.com/v1/badges/adfb8333557241e81a02/maintainability)](https://codeclimate.com/github/haydenmcfarland/awsmeta/maintainability)
 
 # How to use
 
