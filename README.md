@@ -13,7 +13,7 @@ Lite wrapper for AWS EC2 instance metadata
 
 # Why?
 
-I was under the assumption that the Ruby SDK did not already provide this interface. Whoops. Lets go with "why not?".
+Lets go with "why not?". The entire Ruby SDK doesn't need to be included for a small project. This gem is being used for simple application diagnostics.
 
 # How to use
 Add `awsmeta` to your gem file:
