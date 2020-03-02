@@ -12,7 +12,9 @@ module Awsmeta
         return false if ENV['AWSMETA_DISABLE_EC2_DISCOVERY'] == 'true'
 
         !Awsmeta.instance_id.nil?
-      rescue Net::OpenTimeout, Errno::EHOSTUNREACH
+      rescue Net::OpenTimeout,
+             Errno::EHOSTUNREACH,
+             Awsmeta::Errors::ResourceNotFound
         false
       end
     end
