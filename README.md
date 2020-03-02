@@ -7,6 +7,14 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/haydenmcfarland/awsmeta/blob/master/LICENSE.txt)
 
+# What?
+
+Lite wrapper for AWS EC2 instance metadata
+
+# Why?
+
+I was under the assumption that the Ruby SDK did not already provide this interface. Whoops. Lets go with "why not?".
+
 # How to use
 Add `awsmeta` to your gem file:
 
