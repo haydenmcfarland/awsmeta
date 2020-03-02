@@ -4,7 +4,11 @@ require 'spec_helper'
 
 describe Awsmeta::Extras::Discovery do
   after(:each) do
-    ENV.delete('AWSMETA_DISABLE_EC2_DISCOVERY')
+    %w[
+      AWSMETA_DISABLE_EC2_DISCOVERY
+      AWSMETA_OPEN_TIMEOUT
+      AWSMETA_OPEN_TIMEOUT
+    ].each { |c| ENV.delete(c) }
   end
 
   it 'can disable discovery when environment variable' do
@@ -13,6 +17,7 @@ describe Awsmeta::Extras::Discovery do
   end
 
   it 'will return false on timeout' do
+    ENV['AWSMETA_OPEN_TIMEOUT'] = ENV['AWSMETA_READ_TIMEOUT'] = '1'
     expect(described_class.ec2?).to eq(false)
   end
 end
